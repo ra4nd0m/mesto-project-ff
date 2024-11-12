@@ -8,7 +8,6 @@ import { createCard, deleteCard, toggleLike } from './components/card.js';
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
 const closeButtons = document.querySelectorAll('.popup__close');
-const popups = document.querySelectorAll('.popup');
 const profileName = document.querySelector('.profile__title');
 const profileAbout = document.querySelector('.profile__description');
 const nameInput = document.querySelector('.popup__input_type_name');
