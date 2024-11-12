@@ -17,22 +17,25 @@ const newCardForm = document.querySelector('.popup__form[name="new-place"]');
 const cardNameInput = document.querySelector('.popup__input_type_card-name');
 const cardLinkInput = document.querySelector('.popup__input_type_url');
 const placesList = document.querySelector('.places__list');
-
+const profileEditPopup = document.querySelector('.popup_type_edit');
+const imagePopup = document.querySelector('.popup_type_image');
+const imagePopupImg = document.querySelector('.popup__image');
+const imagePopupCaption = document.querySelector('.popup__caption');
+const newCardPopup = document.querySelector('.popup_type_new-card');
 
 //Вывести карточки на страницу
 for (const cardData of initialCards) {
-    const cardElement = createCard(cardData, deleteCard, toggleLike);
+    const cardElement = createCard(cardData, deleteCard, toggleLike, openImagePopup);
     placesList.appendChild(cardElement);
 }
 
 // Обработчики событий для открытия попапов
 editButton.addEventListener('click', () => {
-    const popup = document.querySelector('.popup_type_edit');
     nameInput.value = profileName.textContent;
     aboutInput.value = profileAbout.textContent;
-    openModal(popup)
+    openModal(profileEditPopup)
 });
-addButton.addEventListener('click', () => openModal(document.querySelector('.popup_type_new-card')));
+addButton.addEventListener('click', () => openModal(newCardPopup));
 
 // Обработчик события для формы добавления новой карточки
 newCardForm.addEventListener('submit', (event) => {
@@ -43,7 +46,7 @@ newCardForm.addEventListener('submit', (event) => {
     };
     const cardElement = createCard(cardData, deleteCard, toggleLike, openImagePopup);
     placesList.prepend(cardElement);
-    closeModal(document.querySelector('.popup_type_new-card'));
+    closeModal(newCardPopup);
     newCardForm.reset();
 });
 
@@ -55,38 +58,21 @@ closeButtons.forEach(button => {
     });
 });
 
-// Обработчик события для открытия попапа с изображением
-document.querySelectorAll('.card__image').forEach(image => {
-    image.addEventListener('click', (event) => {
-        const popup = document.querySelector('.popup_type_image');
-        const popupImage = popup.querySelector('.popup__image');
-        const popupCaption = popup.querySelector('.popup__caption');
-
-        popupImage.src = event.target.src;
-        popupImage.alt = event.target.alt;
-        popupCaption.textContent = event.target.alt;
-
-        openModal(popup);
-    });
-});
 
 // Обработчик события для формы редактирования профиля
 editForm.addEventListener('submit', (event) => {
     event.preventDefault();
     profileName.textContent = nameInput.value;
     profileAbout.textContent = aboutInput.value;
-    closeModal(document.querySelector('.popup_type_edit'));
+    closeModal(profileEditPopup);
 });
 
 //Функция открытия попапа с изображением
 function openImagePopup(event) {
-    const popup = document.querySelector('.popup_type_image');
-    const popupImage = popup.querySelector('.popup__image');
-    const popupCaption = popup.querySelector('.popup__caption');
 
-    popupImage.src = event.target.src;
-    popupImage.alt = event.target.alt;
-    popupCaption.textContent = event.target.alt;
+    imagePopupImg.src = event.target.src;
+    imagePopupImg.alt = event.target.alt;
+    imagePopupCaption.textContent = event.target.alt;
 
-    openModal(popup);
+    openModal(imagePopup);
 }
